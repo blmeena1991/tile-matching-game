@@ -1,0 +1,39 @@
+html,body {
+  height:100%;
+}
+/* Custom container */
+.container-full {
+  margin: 0 auto;
+  width: 86%;
+  background-color:#F4B321;
+  overflow:hidden;
+}
+
+.v-center {
+  margin-top:4%;
+}
+  
+.row-panel{
+	margin-top: 50px;
+}  
+
+.btm-row{
+	margin-bottom:10px;
+}
+
+.icon-class{
+	color: yellow;
+font-size: 25px;
+}
+.panel{
+	border: 0px solid transparent;
+}
+
+
+.btn-all{
+	background-color: white;
+}
+.btn-active{
+	background-color:#F4B321;
+}
+

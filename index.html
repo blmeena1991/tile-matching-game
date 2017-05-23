@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Zapi</title>
+
+
+	<!-- Latest compiled and minified CSS -->
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	
+	<script src="https://use.fontawesome.com/58a516018d.js"></script>
+		
+	<link href="css/sliding-puzzle.css" rel="stylesheet" type="text/css">
+	<link href="css/custom.css" rel="stylesheet" type="text/css">
+		
+	<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Fjalla+One' rel='stylesheet' type='text/css'>
+
+  </head>
+
+<body id="main">
+
+	<div class="container-full">
+		<div class="row">
+			<div class="col-lg-12 text-center v-center">
+			 </div>
+		</div>
+	</div>
+	
+	<div class="container" style="background-color: #73CFE8;">
+		<div class="row row-panel">
+			<div class="col-md-8">
+				<div class="panel panel-default" style="background-color:#73CFE8;">
+					<div class="panel-body">
+					<div id="container-a-manhattan" class="puzzle"></div>
+					<div class="btm-row"><span><i  class="fa fa-bolt icon-class"></i>  MOVES:<span id="moveCount">0</span></span></div>	
+					<div class="btm-row"><span><i class="fa fa-hourglass-half icon-class"></i>  Time:<span id="timeId">00:00:00</span></span></div>		
+					
+					
+					<div class="btm-row"><button id="" class="btn btn-success" onClick="refreshPage()">NEW GAME</button></div>
+					<div class="btm-row"><button id="shuffle" class="btn btn-success" >SHUFFLE</button></div>
+					<div class="btm-row"><button id="solve" class="btn btn-danger">AUTO SOLVE</button></div>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="panel panel-default" style="background-color:#96E5F4;">
+					<div class="panel-body">
+					<span>YOUR MOVES</span><hr>
+					<ol id="move">
+					</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
+			<div class="text-center">
+				<span>...................................</span><br>
+				<span>DIFFICULTY LEVEL</span>
+			</div>
+			<br>
+			
+			<div class="text-center">
+					<button id="1_level" type = "button" class = "btn" onClick="changeLevelGame(1)">EASY</button>
+					<button id="2_level" type = "button" class = "btn" onClick="changeLevelGame(2)">MEDIUM</button>
+					<button id="3_level" type = "button" class = "btn" onClick="changeLevelGame(3)">DIFFICULT</button>
+					<button id="4_level" type = "button" class = "btn" onClick="changeLevelGame(4)">CUSTOM</button>
+			</div>
+		</div>
+	</div>
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+    <!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	
+	<script src="js/minheap.js"></script>
+
+
+	<script src="js/sliding-puzzle.js"></script>
+
+
+	<script src="js/sliding-puzzle-frontend.js"></script>
+	
+	<script type="text/javascript">
+		
+		var myParam = location.search.split('level=')[1]
+		
+		
+		if(myParam>0){
+			console.log(myParam);
+			changeLevel(myParam);
+		}else{
+			addClass('1_level');
+			new PuzzleGUI($("#container-a-manhattan"), 4, 50, 5, 100, 50, Algorithm.AManhattan);
+		}
+		
+		function changeLevel(level){
+			document.getElementById("container-a-manhattan").innerHTML = "";
+			level=parseInt(level)
+			addClass(level+'_level');
+			console.log(level);
+			switch(level) {
+				case 1:
+					new PuzzleGUI($("#container-a-manhattan"), 3, 50, 5, 100, 10, Algorithm.AManhattan);
+					
+					break;
+				case 2:
+					new PuzzleGUI($("#container-a-manhattan"), 4, 50, 5, 100, 10, Algorithm.AManhattan);
+					
+					break;
+				case 3:
+					new PuzzleGUI($("#container-a-manhattan"), 10, 50, 5, 50, 50, Algorithm.AManhattan);
+					
+					break;			
+				case 4:
+					new PuzzleGUI($("#container-a-manhattan"), 4, 50, 5, 100, 10, Algorithm.AManhattan);
+					
+					break;
+				default:
+					new PuzzleGUI($("#container-a-manhattan"), 4, 50, 5, 100, 10, Algorithm.AManhattan);
+			}
+		}
+		
+		
+		function addClass(id) {
+			 var myButtonClasses = document.getElementById(id).classList;
+			 if (myButtonClasses.contains("btn-active")) {
+			    myButtonClasses.remove("btn-active");
+			 } else {
+			    myButtonClasses.add("btn-active");
+			 }
+		}
+		
+		function refreshPage(){
+			window.location.reload();
+		} 
+		
+		function changeLevelGame(level){
+			window.location.search = 'level='+level; 
+			//window.location.href.replace( /[\?#].*|$/, "?level="+level);
+			//window.location.replace(window.location.href + "?level="+level);
+		}
+
+		
+	</script>
+  </body>
+</html>
